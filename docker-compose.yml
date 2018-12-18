@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: postgres # 직접 build하지 않고 이미지를 가져와 사용할 수 있음
+    # volumes: 
+  web:
+    build: . # build 할 Dockerfile의 경로
+    command: python3 manage.py runserver 0.0.0.0:5000
+    volumes: # 볼륨명: 컨테이너 위치
+      - .:/code
+    ports: #외부포트: 컨테이너 포트 설정
+      - "5000:5000"
+    depends_on:
+      - db
